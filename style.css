@@ -77,11 +77,6 @@ h1 {
   right: 2rem;
 }
 
-.again {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-}
 
 .guess {
   background: none;
@@ -103,7 +98,7 @@ h1 {
   color: #222;
   font-size: 2rem;
   font-family: inherit;
-  padding: 2rem 3rem;
+  padding: 3rem 7rem;
   cursor: pointer;
   border-radius:15px;
 }
