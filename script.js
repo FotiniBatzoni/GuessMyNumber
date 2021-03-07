@@ -20,47 +20,51 @@ $(function () {
          messageEl.text(message);
     };
 
+    checkEl.on('click', function () {
+        guess = Number(guessEl.val());
+        //when there is no input
+        if (!guess) {
+            displayMessage('No Number!');
+            document.querySelector('body').style.backgroundColor = '#AD1C18';
+
+            //when player wins
+        } else if (guess === secretNumber) {
+            displayMessage('Correct Number!');
+            document.querySelector('body').style.backgroundColor = '#60b347';
+            numberEl.width(30 +'rem');
+            numberEl.text(secretNumber);
+
+            if (score > highscore) {
+                highscore = score;
+                highscoreEl.text(highscore);
+            }
+
+            //when guess is different
+        } else if (guess !== secretNumber) {
+            if (score > 1) {
+                console.log(`start-score=${score}`);
+                displayMessage(guess > secretNumber ? 'Too high!' : 'Too Low...');
+                changeBgColor();
+                score--;
+                console.log(`end-score=${score}`);
+                scoreEl.text(score);
+            }else {
+                scoreEl.text(0) ;
+                displayMessage('You Lost :(');
+                document.querySelector('body').style.backgroundColor = '#AD1C18';
+            }
+        }
+    });
+
+
     guessEl.keypress(function(e) {
         //using Enter
         if (e.keyCode === 13) {
-          e.preventDefault();
+            e.preventDefault();
             e.stopImmediatePropagation();
             checkEl.click();
+            console.log("enter");
         }
-
-        checkEl.on('click', function () {
-            guess = Number(guessEl.val());
-            //when there is no input
-            if (!guess) {
-                displayMessage('No Number!');
-                document.querySelector('body').style.backgroundColor = '#AD1C18';
-    
-                //when player wins
-            } else if (guess === secretNumber) {
-                displayMessage('Correct Number!');
-                document.querySelector('body').style.backgroundColor = '#60b347';
-                numberEl.width(30 +'rem');
-                numberEl.text(secretNumber);
-    
-                if (score > highscore) {
-                    highscore = score;
-                    highscoreEl.text(highscore);
-                }
-    
-                //when guess is different
-            } else if (guess !== secretNumber) {
-                if (score > 1) {
-                    displayMessage(guess > secretNumber ? 'Too high!' : 'Too Low...');
-                    changeBgColor();
-                    score--;
-                    scoreEl.text(score);
-                }else {
-                    scoreEl.text(0) ;
-                    displayMessage('You Lost :(');
-                    document.querySelector('body').style.backgroundColor = '#AD1C18';
-                }
-            }
-        });
 
       });
 
